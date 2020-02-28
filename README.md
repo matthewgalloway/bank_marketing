@@ -22,6 +22,41 @@ vector space affects results.
 ● Its noted that neither scaling nor encoding of categorical variables is explicitly required for NB or RF prior to optimisation.
 
 ## 3.0 Experimental Summary
+
+### Naive bayes
+
+Naive Bayes F1 score was significantly better than RF on an unsampled dataset,
+contrary to our assumption that the effect on the priors of a Naive Bayes model would
+make it a worse predictor.
+2. Counterintuitively, log transformation of the continuous variables decreased the F1
+score for the gaussian naïve bayes model by 42%, although post logging the
+variables were closer to the normal distribution.
+3. Sampling methods: had no positive effect on F1 score although the precision recall
+balance changed, as models got worse at predicting majority class.
+4. Kernel optimisation of continuous variables improved the F1 score, with a grid search
+showing optimal values at width of 0.01.
+5. Kernel smoothing type changing from gaussian to box, triangle and epanechnikov
+had no effect on the results.
+
+### Random Forest
+
+1. Random forest recall rate of 25.98% before resampling data showed a poor ability to
+classifying the minority class.
+2. Sampling methods: greatly improved F1 and recall scores, SMOTE was the best
+method.
+3. Forest size: Increasing from a forest size of 2 trees to 16 showed increase in F1
+score, however past this point changes in F1 score were negligible
+4. No of splits: had no effect on F1 score
+5. Min leaf size: F1 score got worse as min leaf size increased from 1
+6. Grid search was performed on SMOTE data to show max no of splits at 7001 and
+min leaf size of 1 were the best model.
+7. Boosting RUSBoost/AdaBoost/GentleBoost all increased F1 score 
+
+![image](https://user-images.githubusercontent.com/52289894/75583427-776c3b80-5a65-11ea-842d-911ee9ea5587.png)
+![image](https://user-images.githubusercontent.com/52289894/75583468-910d8300-5a65-11ea-9047-fe9dff12332a.png)
+
+
+
 ## 4.0  Analysis 
 ● In contrast to our hypothesis Naive bayes outperformed Random Forest on unsampled data based on F1 score 40.04% vs 37.20%, this was due to RF taking a more significant majority class vote than naive bayes (RF recall = 25.98%).
 
@@ -48,7 +83,8 @@ recall score could be used if the focus is only on understanding the minority cl
 
 ● Kernel density estimation massively outperformed normal Naive bayes but the 600 fold increase in computational time relative to a unoptimised naive bayes decreased the value of these result. This was especially true given a random forest optimised for tree depth out performed the kernel naive bayes in every parameter and ran 283 times faster.
 
-![image](https://user-images.githubusercontent.com/52289894/74459462-409dff00-4e83-11ea-97cb-1a7c6d97c157.png)
+![image](https://user-images.githubusercontent.com/52289894/75583183-0f1d5a00-5a65-11ea-872c-674fa2e8f0d9.png)
+
 
 ## 4.0  Future work/Lessons learned
 
