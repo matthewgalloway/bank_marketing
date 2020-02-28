@@ -25,7 +25,7 @@ vector space affects results.
 
 ### Naive bayes
 
-Naive Bayes F1 score was significantly better than RF on an unsampled dataset,
+1. Naive Bayes F1 score was significantly better than RF on an unsampled dataset,
 contrary to our assumption that the effect on the priors of a Naive Bayes model would
 make it a worse predictor.
 2. Counterintuitively, log transformation of the continuous variables decreased the F1
